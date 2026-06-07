@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { searchMovies } from '../api/moviesApi.js';
+import MovieCard from '../components/MovieCard.jsx';
 
 export default function SearchMovies() {
   const [name, setName] = useState('');
@@ -10,21 +11,17 @@ export default function SearchMovies() {
   }, [name]);
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Search Movies</h1>
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Search by title..."
-        className="w-full border p-2 rounded mb-4"
+        className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-4 py-3 mb-6 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-yellow-400"
       />
-      <div className="space-y-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {results.map((m) => (
-          <div key={m._id} className="bg-white border rounded p-4">
-            <h2 className="font-bold">{m.title}</h2>
-            <p className="text-sm text-slate-500">{m.genre}</p>
-            <p className="mt-1">{m.description}</p>
-          </div>
+          <MovieCard key={m._id} movie={m} />
         ))}
       </div>
     </div>
